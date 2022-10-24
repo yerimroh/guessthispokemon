@@ -13,16 +13,31 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
        
     </head>
+    <style>
+        #beforeReveal {
+
+        }
+
+        #afterReveal {
+            
+        }
+    </style>
     <body>
-        <title id = "title"> GUESS THIS POKEMON </title>
+        <header id = "title"> 
+            <h1> GUESS THIS POKEMON </h1>
+        </header>
 
         <p>Disclaimer: this web application is essentially for my NMIX class assignment. </p>
 
         <!-- This is where the pokemon image will be displayed -->
-        <div id = "display"></div>
+        <div id = "display">
+
+            <gtp></gtp>
+
+        </div>
 
     </body> 
 
     <!-- Import the vue application -->
-    <script src = ".component/PokemonDisplay.js"></script>
+    <script src = "./components/PokemonDisplay.js"></script>
 </html>

@@ -2,18 +2,75 @@
 // gtp stands for 'guess this pokemon'
 Vue.component('gtp', {
     template: `
+    <div id = "pokemonDisplay">
+    <img :src="pokeImage"/><br> <br>
     
+    <form class="submit_answer" @submit.prevent="onSubmit">
+    <label for = "userAnswer">Your Answer: </label>
+    <input id = "userAnswer" v-model = "userAnswer">
+    <input class="button" type="submit" value="Check Answer"> 
+
+    <br>
+    </form>
+
+    <p v-if="ifRevealed=='True'">{{current_Pokemon}}</p>
+    </div>
     `,
     data() {
         return {
-            image: "",
+            pokeImage: "", // image link
+            userAnswer: "",
+            answer: "", 
+            current_Pokemon: {}, // information about this pokemon
             pokeId: 0,
+            ifRevealed: false,
         }
     }, // data
     created() {
-
+        this.loadPokemon() // call this function when application is started
     },  // created
     methods: {
+        // this method loads one image of a pokemon at a time, along with the name
+        async loadPokemon() {
+
+            // pick a random pokemon by randomly generating an id
+            this.pokeId = Math.floor(Math.random() * 906); // 905 pokemons total (at least for the sake of the images)
+
+            
+            // GET https://pokeapi.co/api/v2/pokemon/id 
+            // used to fetch the information of a pokemon (the name, in this case)
+            let response = await axios.get('https://pokeapi.co/api/v2/pokemon/' + this.pokeId);
+
+            this.current_Pokemon = response.data.name; // save the json info to a variable
+
+            // console.log(this.pokeId); 
+
+
+            // GET https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{id}.png
+            // used to fetch the image of a pokemon
+            this.pokeImage = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + this.pokeId + '.png'
+
+
+        }, // loadPokemon
+        compareAnswer() {
+            this.userAnswer = this.userAnswer.toLowerCase(); // the application should check the answer disregarding the case (case insensitive)
+            return this.userAnswer === this.answer;
+            // get the input from the input text field and match it with the name 
+        }, // compareAnswer
+        onSubmit() {
+            if(!compareAnswer()) {
+                alert('Incorrect!')
+            } else {
+                alert('Congratulation! You guessed the pokemon.')
+                revealAnswer()
+            } // if-else
+        }, // onSubmit
+        revealAnswer() {
+            this.isRevealed = true;
+        } // revealAnswer
+
+
+
 
     } // methods
 }) // component
