@@ -3,17 +3,20 @@
 Vue.component('gtp', {
     template: `
     <div id = "pokemonDisplay">
-    <img :src="pokeImage"/><br> <br>
+    <h3>Score: {{score}}</h3>
+    <img v-if = "isRevealedFunc()" id = "afterReveal" v-bind:src="pokeImage"/><br> <br>
+    <img v-if = "isRevealedFunc() == false" id = "beforeReveal" v-bind:src="pokeImage"/><br> <br>
+
     
-    <form class="submit_answer" @submit.prevent="onSubmit">
+    <form v-if = "isRevealedFunc() == false" class="submit_answer" @submit.prevent="onSubmit">
     <label for = "userAnswer">Your Answer: </label>
     <input id = "userAnswer" v-model = "userAnswer">
     <input class="button" type="submit" value="Check Answer"> 
-
-    <br>
     </form>
 
-    <p v-if="ifRevealed=='True'">{{current_Pokemon}}</p>
+    <button @click="nextPokemon()">Next Pokemon</button>
+
+    <p>{{answer}}</p>
     </div>
     `,
     data() {
@@ -24,6 +27,7 @@ Vue.component('gtp', {
             current_Pokemon: {}, // information about this pokemon
             pokeId: 0,
             ifRevealed: false,
+            score: 0,
         }
     }, // data
     created() {
@@ -32,6 +36,9 @@ Vue.component('gtp', {
     methods: {
         // this method loads one image of a pokemon at a time, along with the name
         async loadPokemon() {
+            // reset everything
+            this.ifRevealed = false;
+            this.userAnswer = "";
 
             // pick a random pokemon by randomly generating an id
             this.pokeId = Math.floor(Math.random() * 906); // 905 pokemons total (at least for the sake of the images)
@@ -41,7 +48,7 @@ Vue.component('gtp', {
             // used to fetch the information of a pokemon (the name, in this case)
             let response = await axios.get('https://pokeapi.co/api/v2/pokemon/' + this.pokeId);
 
-            this.current_Pokemon = response.data.name; // save the json info to a variable
+            this.answer = response.data.name; // save the json info to a variable
 
             // console.log(this.pokeId); 
 
@@ -58,16 +65,25 @@ Vue.component('gtp', {
             // get the input from the input text field and match it with the name 
         }, // compareAnswer
         onSubmit() {
-            if(!compareAnswer()) {
+            if(!this.compareAnswer()) {
                 alert('Incorrect!')
-            } else {
+                this.userAnswer = "" // reset the input box
+            } else { // if correct
                 alert('Congratulation! You guessed the pokemon.')
-                revealAnswer()
+                this.revealAnswer()
+                this.score += 1;
+                this.userAnswer = "" // reset the input box
             } // if-else
         }, // onSubmit
         revealAnswer() {
-            this.isRevealed = true;
-        } // revealAnswer
+            this.ifRevealed = true;
+        }, // revealAnswer
+        isRevealedFunc() {
+            return this.ifRevealed;
+        }, // isRevealedFunc
+        nextPokemon() {
+            this.loadPokemon()
+        } // nextPokemon
 
 
 
