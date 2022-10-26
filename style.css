@@ -1,0 +1,71 @@
+body {
+    margin: 0 auto;
+    background: linear-gradient(180deg, #fc999c 0%, #e1c397 100%);
+    background-size: 100% 100%;
+
+    padding: 50px;
+    height: 100%;
+
+    text-align: center;
+}
+
+img {
+    width: 250px;
+}
+
+#display {
+
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 100%;
+    padding: 30px;
+    border-radius: 5%;
+
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.pokemonDisplay {
+    text-align: center;
+}
+
+
+.button {
+    width: 120px;
+    height: 30px;
+    border-radius: 15%;
+    font-family: 'Antic';
+
+    border: none;
+    background-color: #ed4045;
+
+    font-size: 15px;
+    color: white;
+
+    margin-top: 10px;
+}
+
+
+.title {
+    font-family: 'Audiowide';
+    font-size: 30px;
+}
+
+.text {
+    font-family: 'Antic';
+}
+
+
+.inputField {
+    font-family: 'Audiowide';
+    width: 200px;
+    height: 30px;
+    border-radius: 10%;
+    border: none;
+}
+
+
+
+#beforeReveal {
+    filter: brightness(0);
+}

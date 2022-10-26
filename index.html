@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Guess This PokeMon </title> 
+        <meta charset="UTF-8">
+        <meta name="description" content="This page is for: ">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="Yerim Roh">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Import vue and axios to work with the API -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        
+
+        <!-- Import external style sheet -->
+        <link rel="stylesheet" href="./style.css" type = "text/css">
+
+        <!-- For the font -->
+        <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'> 
+        <link href='https://fonts.googleapis.com/css?family=Antic' rel='stylesheet'> 
+
+
+    </head>
+    
+    <body>
+        <header id = "title"> 
+            <h1 class = "title" style = "font-size: 40px;"> GUESS THIS POKEMON </h1>
+            <audio src="./Route201.mp3" loop="true" controls autoplay></audio>
+        </header>
+
+
+        <!-- This is where the pokemon image will be displayed -->
+        <div id = "display" style = "margin: 0 auto;">
+            <!-- Here locates the 'guess this pokemon' component -->
+            <gtp></gtp>
+        </div>
+
+
+        <footer>
+            <p class = "text"><strong>Disclaimer: </strong> this web application is for my NMIX class project. <br> 
+            <strong>BGM used: </strong> <a href = "https://youtu.be/oStAJs2N80c">Route 201 theme </a> from the official pokemon youtube channel. <br>
+            <strong>API used: </strong> <a href = "https://pokeapi.co/" target = "__blank">PokeAPI</a>
+
+        </footer>
+    </body> 
+
+    <!-- Import the vue application -->
+    <script src = "./components/PokemonDisplay.js"></script>
+</html>
